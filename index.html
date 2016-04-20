@@ -3,6 +3,7 @@
 <head>
 	<title>Something</title>
 	<link rel="stylesheet" href="./style.css">
+	<meta charset="utf-8">
 </head>
 <body>
 
@@ -24,34 +25,28 @@
 
 	<section>
 		<h2>Отзывы</h2>
-
-		<form>
-			<input type="email" required placeholder="user@example.com">
-			<input type="text" required placeholder="Андрей" pattern="[А-Я]{1}[а-я]{1,}">
-			<input type="text" placeholder="Ваш отзыв">
+		<form method="post" action="<?=htmlspecialchars($_SERVER["PHP_SELF"])?>">
+			<label for="username">Имя</label>
+			<input type="text" name="username" required placeholder="Андрей" pattern="[А-Я]{1}[а-я]{1,}" value="<?=$username?>" maxlength="60">
+			<span class="error"><?=$usernameErr?></span>
+			<label for="mail">E-mail</label>
+			<input type="email" name="email" required placeholder="user@example.com" value="<?=$email?>" maxlength="60">
+			<span class="error"><?=$emailErr?></span>
+			<label for="comment">Отзыв</label>
+			<textarea type="text" name="comment" required placeholder="Ваш отзыв" maxlength="500"><?=$comment?></textarea>
+			<span class="error"><?=$commentErr?></span>
+			<input type="hidden" name="token" value="<?=$_SESSION['token']?>" />
 			<input type="submit" value="Оставить отзыв">
 		</form>
 
-		<br />
-
-		<article>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</article>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>		
+		<div class="comments">
+		<?php while($row = $result->fetch_assoc()): ?>
+			<article>
+			<div class="author"><?=$row['author']?> <span class="email">[<?=$row['email']?>]</span><span class="date"><?=$row['created_at']?></span></div>
+			<?=$row['message']?>
+			</article>
+		<?php endwhile; ?>
+		</div>		
 	</section>
 
 	<footer>
