@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Something</title>
+	<link rel="stylesheet" href="./style.css">
+	<meta charset="utf-8">
+</head>
+<body>
+
+	<header>
+		<h1>Meizu Pro 6</h1>
+	</header>
+
+	<aside>
+		<nav>
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="#">Portfolio</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="#">Contact</a></li>
+			</ul>
+		</nav>
+		<img src="/img/pro6.jpg" width="240">
+	</aside>
+
+	<section>
+		<h2>Отзывы</h2>
+		<?=$form?>
+
+		<div class="comments">
+		<?php foreach($datas as $data): ?>
+			<article>
+			<div class="author"><?=$data['author']?> <span class="email">[<?=$data['email']?>]</span><span class="date"><?=$data['created_at']?></span></div>
+			<?=$data['message']?>
+			</article>
+		<?php endforeach; ?>
+		</div>		
+	</section>
+
+	<footer>
+		Copyright © 2016
+	</footer>
+
+</body>
+</html>
